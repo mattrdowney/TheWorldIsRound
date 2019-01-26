@@ -1,3 +1,0 @@
-Use the Source, Luke - https://github.com/mattrdowney/Planetaria (auto-credit)
-Language-Independence - (caveat, this is more of a toy than a game)
-Wanderlust - if I can get time zones working
