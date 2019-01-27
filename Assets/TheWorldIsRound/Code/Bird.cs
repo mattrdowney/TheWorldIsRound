@@ -28,20 +28,22 @@ namespace TheWorldIsRound
             float target_angle = Vector3.SignedAngle(main_character.up, direction, main_character.forward) * Mathf.Deg2Rad;
             // Distance from satellite to controller (which represents either the head's view direction or the mouse position).
             float target_distance = Vector3.Angle(main_character.forward, main_controller.forward) * Mathf.Deg2Rad;
-            target_distance = Mathf.Clamp01(target_distance / Mathf.PI); /*satellite radius, not divided by 2 because Actuator goes twice as far as head movement*/
+            target_distance = Mathf.Clamp01(target_distance / (Mathf.PI/4)); /*satellite radius, not divided by 2 because Actuator goes twice as far as head movement*/
             // Return the composite input direction.
-            Vector2 input_direction = new Vector2(-Mathf.Sin(target_angle), Mathf.Cos(target_angle)) * target_distance;
+            Vector2 input_direction = new Vector2(-Mathf.Sin(target_angle), Mathf.Cos(target_angle)) * target_distance * acceleration;
 
             // add velocity based on input
             planetaria_rigidbody.relative_velocity += input_direction * Time.deltaTime;
             Vector2 velocity = planetaria_rigidbody.relative_velocity;
 
-            if (planetaria_rigidbody.relative_velocity.sqrMagnitude > 1)
+            if (planetaria_rigidbody.relative_velocity.magnitude > max_speed)
             {
-                planetaria_rigidbody.relative_velocity = planetaria_rigidbody.relative_velocity.normalized;
+                planetaria_rigidbody.relative_velocity = planetaria_rigidbody.relative_velocity.normalized * max_speed;
             }
         }
 
+        public float max_speed = 0.3f;
+        public float acceleration = 0.1f;
         [SerializeField] [HideInInspector] private Transform main_character;
         [SerializeField] [HideInInspector] private Transform main_controller;
         [SerializeField] [HideInInspector] private PlanetariaRigidbody planetaria_rigidbody;
