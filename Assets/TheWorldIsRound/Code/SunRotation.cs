@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 
-public class SunRotation : MonoBehaviour // Everything is relative, and rotating the Earth would cause motion sickness.
+namespace TheWorldIsRound
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SunRotation : MonoBehaviour // Everything is relative, and rotating the Earth would cause motion sickness.
     {
-        sun = this.transform;
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            sun = this.transform;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Rotate(new Vector3(0, +360/60*Time.deltaTime, 0)); // one rotation per minute, positive sign matters because sun rises in true East and sets in true West (implementation note: Planetaria is inverted)
-    }
+        // Update is called once per frame
+        void Update()
+        {
+            transform.Rotate(new Vector3(0, +360 / 60 * Time.deltaTime, 0)); // one rotation per minute, positive sign matters because sun rises in true East and sets in true West (implementation note: Planetaria is inverted)
+        }
 
-    [SerializeField] [HideInInspector] private Transform sun;
+        [SerializeField] [HideInInspector] private Transform sun;
+    }
 }
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
